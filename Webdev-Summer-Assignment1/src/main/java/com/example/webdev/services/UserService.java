@@ -42,5 +42,27 @@ public class UserService {
 			return Boolean.FALSE.toString();
 		}
 	}
+	
+	@RequestMapping(method = RequestMethod.POST, value="/api/login")
+	public List<String> login(@RequestBody User user,HttpSession session)
+	{
+		//HttpSession session=request.getSession();
+		List<User> u = new ArrayList<User>();
+		List<String> u1 = new ArrayList<String>();
+		u = (List<User>) userRepository.findUserByCredentials(user.getUsername(), user.getPassword());
+		if(u.size() == 1)
+		{
+			String id = Integer.toString(u.get(0).getId());
+			u1.add(id);
+			u1.add(Boolean.TRUE.toString());
+			session.setAttribute("userId",id);
+			session.setAttribute("user",u.get(0));
+			return u1;
+		}
+		else {
+			return u1;
+		}
+
+	}
 
 }
