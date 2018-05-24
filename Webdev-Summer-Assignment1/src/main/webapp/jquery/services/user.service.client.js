@@ -10,7 +10,7 @@ function UserServiceClient() {
 	this.createUser = createUser;
 	this.findAllUsers = findAllUsers;
 	this.findUserById = findUserById;
-	this.findProfileById = findProfileById;
+	this.searchUsers = searchUsers;
 	this.deleteUser = deleteUser;
 	this.updateUser = updateUser;
 	this.url = '/api/user';
