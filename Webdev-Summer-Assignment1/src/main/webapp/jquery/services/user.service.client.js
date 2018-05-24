@@ -1,6 +1,8 @@
 function UserServiceClient() {
 	this.register = register;
 	this.login = login;
+	this.forgotPassword = forgotPassword;
+	this.resetPassword = resetPassword;
 	this.registerURL = '/api/register';
 	this.loginURL = '/api/login';
 	var self = this;
@@ -28,6 +30,38 @@ function UserServiceClient() {
 			body: JSON.stringify({username:user.username, password: user.password}),
 			headers: {
 				'content-type': 'application/json'
+			}
+		})
+		.then(function(response)
+				{
+			return response.json();
+				});
+	}
+	
+	function forgotPassword(userEmail)
+	{
+		return fetch(this.loginURL+'/forgot',{
+			method :'post',
+			credentials: 'same-origin',
+			body : JSON.stringify(userEmail),
+			headers : {
+				'content-type':'application/json',
+			}
+		})
+		.then(function(response)
+				{
+			return response.json();
+				});
+	}
+
+	function resetPassword(userPwd)
+	{
+		return fetch(this.loginURL+'/reset',{
+			method :'post',
+			credentials: 'same-origin',
+			body : JSON.stringify(userPwd),
+			headers : {
+				'content-type':'application/json',
 			}
 		})
 		.then(function(response)
