@@ -191,14 +191,27 @@ function deleteSuccess(){
 	})
 }
 
-function createSuccess(){
-	$.toast({
-		heading: 'Success',
-		text: 'User created successfully',
-		position: 'top-right',
-		hideAfter: 4000,
-		icon: 'success'
-	})
+function createSuccess(data){
+	if(data == false)
+	{
+		$.toast({
+			heading: 'Error',
+			text: 'A similar username already exists. Please try some different username',
+			position: 'top-right',
+			hideAfter: 4000,
+			icon: 'error'
+		})
+	}
+	else{
+		$.toast({
+			heading: 'Success',
+			text: 'User created successfully',
+			position: 'top-right',
+			hideAfter: 4000,
+			icon: 'success'
+		})
+	}
+
 }
 
 function searchSuccess(){

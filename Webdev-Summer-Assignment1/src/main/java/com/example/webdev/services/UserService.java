@@ -226,9 +226,19 @@ public class UserService {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value="/api/user")
-	public void createUser(@RequestBody User user)
+	public Boolean createUser(@RequestBody User user)
 	{
-		userRepository.save(user);
+		List<User> u = new ArrayList<User>();
+		u = (List<User>) userRepository.findUserByUsername(user.getUsername());
+		if(u.size() > 0)
+		{
+			return false;
+		}
+		else {
+			userRepository.save(user);
+			return true;
+		}
+		
 	}
 	
 	@GetMapping("/api/user")	
