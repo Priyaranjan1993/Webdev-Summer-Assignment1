@@ -21,6 +21,13 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 	@Query("SELECT u FROM User u WHERE u.token=:token")
 	Iterable<User> findUserByToken(@Param("token")String token);
 	
+	@Query("SELECT u FROM User u WHERE u.username=:username or u.firstName=:firstName or u.lastName=:lastName or u.role=:role")
+	Iterable<User> findUserByField(
+			@Param("username")String username,
+			@Param("firstName")String firstName,
+			@Param("lastName")String lastName,
+			@Param("role")String role);
+	
 }
 
 

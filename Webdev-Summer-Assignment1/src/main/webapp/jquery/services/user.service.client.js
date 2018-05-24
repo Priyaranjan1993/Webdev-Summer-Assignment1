@@ -7,6 +7,13 @@ function UserServiceClient() {
 	this.findProfileById = findProfileById;
 	this.updateProfile = updateProfile;
 	this.checkIfAdmin = checkIfAdmin;
+	this.createUser = createUser;
+	this.findAllUsers = findAllUsers;
+	this.findUserById = findUserById;
+	this.findProfileById = findProfileById;
+	this.deleteUser = deleteUser;
+	this.updateUser = updateUser;
+	this.url = '/api/user';
 	this.registerURL = '/api/register';
 	this.loginURL = '/api/login';
 	this.profileURL = '/api/profile';
@@ -128,6 +135,76 @@ function UserServiceClient() {
 			return response.json();
 				});
 	}
+	
+	function searchUsers(user) {
+
+		return fetch(this.url+'/search',{
+			method :'post',
+			body : JSON.stringify(user),
+			headers : {
+				'content-type':'application/json'
+			}
+		})
+		.then(function(response)
+				{
+			return response.json();
+				});
+	}
+	
+	function createUser(user, callback) {
+		return fetch(this.url,{
+			method :'post',
+			credentials: 'same-origin',
+			body : JSON.stringify(user),
+			headers : {
+				'content-type':'application/json'
+			}
+		});
+	}
+	function findAllUsers(callback) {
+		return fetch(this.url)
+		.then(function(response)
+				{
+			return response.json();
+				});
+	}
+	function findUserById(userId) {
+		return fetch(this.url+'/'+userId,{
+			method :'get',
+			credentials: 'same-origin',
+		})
+		.then(function(response)
+				{
+			return response.json();
+				});
+	}
+	
+	function updateUser(user,userId) {
+		return fetch(this.url+'/'+userId,{
+			method :'put',
+			credentials: 'same-origin',
+			body : JSON.stringify(user),
+			headers : {
+				'content-type':'application/json'
+			}
+		})
+		.then(function(response)
+				{
+			return response.json();
+				});
+	}
+	
+	function deleteUser(userId) {
+		return fetch(this.url+'/'+userId,{
+			credentials: 'same-origin',
+			method :'delete'
+		})
+		.then(function(response)
+				{
+			return response;
+				});
+	}
+
 
 
 }

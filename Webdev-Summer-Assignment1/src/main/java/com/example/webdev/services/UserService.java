@@ -201,5 +201,71 @@ public class UserService {
 		}
 		
 	}
+	
+	@RequestMapping(method = RequestMethod.POST, value="/api/user/search")
+	public List<User> searchUsers(@RequestBody User user)
+	{
+		List<User> u = new ArrayList<User>();
+		List<User> u1 = new ArrayList<User>();
+		u = (List<User>) userRepository.findUserByField(user.getUsername(), user.getFirstName(), user.getLastName(), user.getRole());
+		if(u.size() > 0)
+		{
+			/*String id = Integer.toString(u.get(0).getId());
+			u1.add(id);
+			u1.add(Boolean.TRUE.toString());*/
+			for(User us : u)
+			{
+				u1.add(us);
+			}
+			return u1;
+		}
+		else {
+			return u1;
+		}
+		
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value="/api/user")
+	public void createUser(@RequestBody User user)
+	{
+		userRepository.save(user);
+	}
+	
+	@GetMapping("/api/user")	
+	public List<User> findAllUsers() {
+		return (List<User>) userRepository.findAll();
+	}
+	
+	@RequestMapping(method = RequestMethod.DELETE, value="/api/user/{userId}")
+	public void deleteUser(@PathVariable("userId") int id)
+	{
+		userRepository.deleteById(id);
+	}
+	
+	@GetMapping("/api/user/{userId}")	
+	public User findUserById(@PathVariable("userId") int userId,HttpSession session) {
+		Optional<User> data = userRepository.findById(userId);
+		if(data.isPresent()) {
+			return data.get();
+		}
+		return null;
+	}
+	
+	@RequestMapping(method = RequestMethod.PUT, value="/api/user/{userId}")
+	public User updateUser(@RequestBody User newuser,@PathVariable("userId") int id,HttpSession session)
+	{
+		Optional<User> data = userRepository.findById(id);
+		if(data.isPresent()) {
+			User user = data.get();
+			user.setFirstName(newuser.getFirstName());
+			user.setLastName(newuser.getLastName());
+			user.setPassword(newuser.getPassword());
+			user.setUsername(newuser.getUsername());
+			user.setRole(newuser.getRole());
+			userRepository.save(user);
+			return user;
+		}
+		return null;
+	}
 
 }
