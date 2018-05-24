@@ -4,8 +4,12 @@ function UserServiceClient() {
 	this.forgotPassword = forgotPassword;
 	this.resetPassword = resetPassword;
 	this.logout = logout;
+	this.findProfileById = findProfileById;
+	this.updateProfile = updateProfile;
+	this.checkIfAdmin = checkIfAdmin;
 	this.registerURL = '/api/register';
 	this.loginURL = '/api/login';
+	this.profileURL = '/api/profile';
 	var self = this;
 
 	function register(user) {
@@ -82,6 +86,46 @@ function UserServiceClient() {
 		.then(function(response)
 				{
 			return response;
+				});
+	}
+	
+	function findProfileById() {
+		return fetch(this.profileURL,{
+			method :'get',
+			credentials: 'same-origin',
+		})
+		.then(function(response)
+				{
+			return response.json();
+				});
+	}
+	
+	function updateProfile(userId,user) {
+		return fetch(this.profileURL,{
+			method :'put',
+			credentials: 'same-origin',
+			body : JSON.stringify(user),
+			headers : {
+				'content-type':'application/json'
+			}
+		})
+		.then(function(response)
+				{
+			return response.json();
+				});
+	}
+	
+	function checkIfAdmin(){
+		return fetch(this.url+'/checkAdmin',{
+			method :'post',
+			credentials: 'same-origin',
+			headers : {
+				'content-type':'application/json',
+			}
+		})
+		.then(function(response)
+				{
+			return response.json();
 				});
 	}
 

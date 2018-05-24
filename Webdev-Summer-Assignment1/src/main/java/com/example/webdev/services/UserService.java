@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -153,6 +154,52 @@ public class UserService {
 		session.invalidate();
 		str = "logged out";
 		return str.toString();
+	}
+	
+	@GetMapping("/api/profile")	
+	public User findProfileById(HttpSession session) {
+		String uid = (String) session.getAttribute("userId");
+		Optional<User> data = userRepository.findById(Integer.parseInt(uid));
+		if(data.isPresent()) {
+			return data.get();
+		}
+		return null;
+	}
+	
+	@RequestMapping(method = RequestMethod.PUT, value="/api/profile")
+	public User updateProfile(@RequestBody User newuser,HttpSession session)
+	{
+		String uid = (String) session.getAttribute("userId");
+		Optional<User> data = userRepository.findById(Integer.parseInt(uid));
+		if(data.isPresent()) {
+			User user = data.get();
+			user.setFirstName(newuser.getFirstName());
+			user.setLastName(newuser.getLastName());
+			user.setPhone(newuser.getPhone());
+			user.setEmail(newuser.getEmail());
+			user.setRole(newuser.getRole());
+			user.setDateOfBirth(newuser.getDateOfBirth());
+			userRepository.save(user);
+			return user;
+		}
+		return null;
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value="/api/user/checkAdmin")
+	public Boolean checkAdmin(HttpSession session)
+	{
+		User user = (User) session.getAttribute("user");
+		String username = user.getUsername();
+		List<User> u = new ArrayList<User>();
+		u = (List<User>) userRepository.findUserByUsername(username);
+		if(!u.get(0).getRole().equals("Admin"))
+		{
+			return false;
+		}
+		else {
+			return true;
+		}
+		
 	}
 
 }
