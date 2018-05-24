@@ -1,0 +1,87 @@
+@charset "ISO-8859-1";
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
+
+body {
+	background: #606468;
+	font-family: 'Open Sans', sans-serif;
+}
+
+#manageBtn, #logoutBtn {
+	margin: 14px 0 0 0;
+}
+
+.customWidth {
+	max-width: 100% !important;
+}
+
+.centerBtn {
+	text-align: right;
+}
+
+.profileContainer {
+	font-size: 14px;
+	width: 850px;
+	margin: 16px auto;
+}
+
+/* .profileContainer p {
+	padding: 12px;
+	position: relative;
+	top: 25px;
+	right: 10px;
+} */
+.profile-body {
+	padding: 10px 12px 12px 12px;
+	background: #ebebeb;
+}
+
+.profileContainer input {
+	box-sizing: border-box;
+	font-size: 14px;
+	padding: 14px;
+	outline: none;
+	border-width: 2px;
+	border-style: solid;
+}
+
+.profileContainer select {
+	box-sizing: border-box;
+	font-size: 14px;
+	outline: none;
+	border-width: 2px;
+	border-style: solid;
+	margin: 16px 0 0 14px;
+	width: 97% !important;
+}
+
+.profile-banner {
+	background: #28d;
+	padding: 14px;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+	color: #fff;
+	margin-bottom: 0px;
+}
+
+#loginBtn {
+	position: relative;
+	margin: 0 0 0px 11px;
+	width: 100%;
+	bottom: 25px;
+}
+
+#updateBtn {
+	position: relative;
+	margin: 40px 0 0 17px;
+	width: 96%;
+}
+
+.profileContainer input[type="submit"]:hover {
+	background: #17c;
+}
+
+.profileContainer input[type="submit"]:focus {
+	border-color: #05a;
+}
