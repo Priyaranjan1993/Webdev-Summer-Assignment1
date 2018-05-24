@@ -1,0 +1,65 @@
+@charset "ISO-8859-1";
+
+.parentTable {
+	width: 85%;
+	margin: 0 auto;
+}
+
+.centerBtn {
+	text-align: right;
+}
+
+#header{
+	text-align: center;
+}
+
+#profileBtn, #logoutBtn {
+	margin: 14px 0 0 0;
+}
+
+.hideData {
+	-webkit-text-security: disc;
+}
+
+}
+#header {
+	text-align: center;
+}
+
+.wbdv-imgspacing {
+	width: 25px;
+	margin-left: 10px;
+}
+
+.wbdv-imgspacing2 {
+	width: 35px;
+	margin-left: 20px;
+}
+
+.fa, .fas {
+	cursor: pointer;
+}
+
+.table-bordered thead td, .table-bordered thead th {
+	text-align: center;
+}
+
+#searchUserBtn {
+	color: royalblue;
+}
+
+#createUserBtn {
+	color: royalblue;
+}
+
+#updateUserBtn {
+	color: lightseagreen;
+}
+
+.edit {
+	color: royalblue;
+}
+
+.delete {
+	color: red;
+}
