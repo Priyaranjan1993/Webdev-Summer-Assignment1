@@ -3,6 +3,7 @@ function UserServiceClient() {
 	this.login = login;
 	this.forgotPassword = forgotPassword;
 	this.resetPassword = resetPassword;
+	this.logout = logout;
 	this.registerURL = '/api/register';
 	this.loginURL = '/api/login';
 	var self = this;
@@ -67,6 +68,20 @@ function UserServiceClient() {
 		.then(function(response)
 				{
 			return response.json();
+				});
+	}
+	
+	function logout(){
+		return fetch(this.url+'/logout',{
+			method :'post',
+			credentials: 'same-origin',
+			headers : {
+				'Content-Type': 'application/json',
+			}
+		})
+		.then(function(response)
+				{
+			return response;
 				});
 	}
 

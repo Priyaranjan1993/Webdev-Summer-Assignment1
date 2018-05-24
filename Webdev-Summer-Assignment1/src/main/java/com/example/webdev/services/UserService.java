@@ -144,5 +144,15 @@ public class UserService {
 		}
 		return str;
 	}
+	
+	@RequestMapping(method = RequestMethod.POST, value="/api/user/logout",produces = MediaType.TEXT_PLAIN_VALUE)
+	@ResponseBody
+	public String logout(HttpSession session)
+	{
+		String str;
+		session.invalidate();
+		str = "logged out";
+		return str.toString();
+	}
 
 }
