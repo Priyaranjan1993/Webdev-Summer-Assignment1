@@ -2,16 +2,21 @@ package com.example.webdev.services;
 
 import java.util.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.webdev.models.*;
 import com.example.webdev.repositories.UserRepository;
@@ -21,6 +26,13 @@ import com.example.webdev.repositories.UserRepository;
 public class UserService {
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	private JavaMailSender mailSender;
+	
+	public void sendEmail(SimpleMailMessage email) {
+		mailSender.send(email);
+	}
 	
 	
 	@RequestMapping(method = RequestMethod.POST, value="api/register",produces = MediaType.TEXT_PLAIN_VALUE)
@@ -63,6 +75,74 @@ public class UserService {
 			return u1;
 		}
 
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value="/api/login/forgot")
+	public List<String> forgotPassword(@RequestBody User us,HttpServletRequest request) {
+		List<User> user = new ArrayList<User>();
+		List<String> str = new ArrayList<String>();
+		user = (List<User>)userRepository.findUserByEmail(us.getEmail());
+		String message = null;
+		if(user.isEmpty())
+		{
+			message = "Email Id is not registered.";
+			str.add(message);
+		}
+		else {
+			User u = user.get(0);
+			u.setToken(UUID.randomUUID().toString());
+			userRepository.save(u);
+			String url = request.getScheme()+"://"+request.getServerName();
+			SimpleMailMessage passwordResetEmail = new SimpleMailMessage();
+			passwordResetEmail.setFrom("priyaranjan9090@gmail.com");
+			passwordResetEmail.setTo(u.getEmail());
+			passwordResetEmail.setSubject("Password Reset Request");
+			passwordResetEmail.setText("To reset your password, click the link below:\n" + url + "/api/login/reset/" + u.getToken());
+			sendEmail(passwordResetEmail);
+			message = "success";
+			str.add(message);
+		}
+		return str;
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value="/api/login/reset/{token}")
+	@ResponseBody
+	public ModelAndView resetPage(@PathVariable("token") String token) {
+		ModelAndView modelAndView = new ModelAndView("redirect:/jquery/components/login/resetPassword.template.client.html");
+		List<User> user = new ArrayList<User>();
+		user = (List<User>)userRepository.findUserByToken(token);
+		if(!user.isEmpty())
+		{
+			modelAndView.addObject("token", token);
+		}
+		else {
+			modelAndView.addObject("ErrorMsg",token);
+		}
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value="/api/login/reset")
+	@ResponseBody
+	public List<String> resetPage(ModelAndView modelAndView,@RequestBody User newUser) {
+		List<String> str = new ArrayList<String>();
+		modelAndView = new ModelAndView("redirect:/jquery/components/login/login.template.client.html");
+		List<User> user = new ArrayList<User>();
+		user = (List<User>)userRepository.findUserByToken(newUser.getToken());
+		if(!user.isEmpty())
+		{
+			User resetUser = user.get(0);
+			resetUser.setPassword(newUser.getPassword());
+			resetUser.setToken(null);
+			userRepository.save(resetUser);
+			str.add("success");
+			return str;
+			
+		}
+		else {
+			str.add("error");
+		}
+		return str;
 	}
 
 }
