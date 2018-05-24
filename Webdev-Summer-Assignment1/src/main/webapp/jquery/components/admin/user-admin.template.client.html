@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="../../resources/web-fonts-with-css/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="user-admin.style.client.css">
+<link rel="stylesheet" href="../../Libraries/Toast/dist/jquery.toast.min.css">
+</head>
+<body>
+<div class="container centerBtn">
+<button id="profileBtn" type="button" class="btn btn-default btn-md">Profile</button>
+<button id="logoutBtn" type="button" class="btn btn-default btn-md">Logout</button>
+</div>
+	<header>
+		<p>
+		<h2 id="header">User Admin</h2>
+		</p>
+	</header>
+	<div class="parentTable">
+		<table class="table table-hover table-bordered table-responsive-md" id="customTable">
+			<thead>
+				<tr>
+					<th>Username</th>
+					<th>Password</th>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Role</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<thead>
+				<tr>
+					<th><input id="usernameFld" class="form-control" type="text"
+						placeholder="Username"></th>
+					<th><input id="passwordFld" class="form-control" type="password"
+						placeholder="Password"></th>
+					<th><input id="firstNameFld" class="form-control" type="text"
+						placeholder="First Name"></th>
+					<th><input id="lastNameFld" class="form-control" type="text"
+						placeholder="Last Name"></th>
+					<th><select id="roleFld" class="form-control">
+							<option selected disabled hidden>Choose</option>
+							<option value="Faculty">Faculty</option>
+							<option value="Student">Student</option>
+							<option value="Admin">Admin</option>
+					</select></th>
+					<th><i id="searchUserBtn" class="fas fa-search wbdv-imgspacing" title="Search"></i>
+						<i id="createUserBtn" class="fas fa-plus wbdv-imgspacing"
+						title="Add"></i> <i id="updateUserBtn" class="fas fa-check wbdv-imgspacing"
+						title="Update"></i></th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr class="template">
+					<td class="username"></td>
+					<td class="password hideData"></td>
+					<td class="firstName"></td>
+					<td class="lastName"></td>
+					<td class="role"></td>
+					<td><i class="fa fa-pencil-alt wbdv-imgspacing2 edit" title="Edit"></i> <i
+						class="fas fa-times wbdv-imgspacing2 delete" title="Delete"></i></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	crossorigin="anonymous"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<script src="../../services/user.service.client.js"></script>
+<script src="../../Libraries/Toast/dist/jquery.toast.min.js"></script>
+<script src="user-admin.controller.client.js"></script>
+
+
+
+</html>
