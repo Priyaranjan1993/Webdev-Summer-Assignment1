@@ -34,6 +34,7 @@ public class WidgetService {
 		return (List<Widget>) repository.findAll();
 
 	}
+
 	
 	@GetMapping("/api/lesson/{lessonId}/widget")
 	public List<Widget> findAllWidgetsByLessonId(@PathVariable("lessonId") int lessonId)
@@ -56,6 +57,7 @@ public class WidgetService {
 		}
 		return null;
 	}
+	
 	
 	@RequestMapping(method = RequestMethod.PUT, value="/api/widget/{widgetId}")
 	public Widget updateWidgetById(@RequestBody Widget newWidget,@PathVariable("widgetId") int widgetId)
@@ -96,7 +98,7 @@ public class WidgetService {
 		repository.deleteById(widgetId);
 	}
 	
-	
+
 	@PostMapping("/api/lesson/{lessonId}/widget")
 	public List<String> saveAllWidgets(@RequestBody List<Widget> widgets,@PathVariable("lessonId") int lessonId) {
 		Optional<Lesson> data = lessonRepository.findById(lessonId);
@@ -213,6 +215,4 @@ public class WidgetService {
 		}
 		return null;
 	}
-	
-
 }
