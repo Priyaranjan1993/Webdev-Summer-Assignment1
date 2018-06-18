@@ -26,11 +26,21 @@ public class Lesson {
 	@OneToMany(mappedBy="lesson")
 	private List<Topic> topic;
 	
+	@OneToMany(mappedBy="lesson")
+	private List<Widget> widget;
+	
 	public List<Topic> getTopic() {
 		return topic;
 	}
 	public void setTopic(List<Topic> topic) {
 		this.topic = topic;
+	}
+
+	public List<Widget> getWidget() {
+		return widget;
+	}
+	public void setWidget(List<Widget> widget) {
+		this.widget = widget;
 	}
 	public int getId() {
 		return id;
