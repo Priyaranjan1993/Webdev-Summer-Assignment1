@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.webdevassignment2java.models.Lesson;
-import com.example.webdevassignment2java.models.Widget;
-import com.example.webdevassignment2java.repositories.LessonRepository;
-import com.example.webdevassignment2java.repositories.WidgetRepository;
+import com.example.webdev.models.Lesson;
+import com.example.webdev.models.Widget;
+import com.example.webdev.repositories.LessonRepository;
+import com.example.webdev.repositories.WidgetRepository;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
