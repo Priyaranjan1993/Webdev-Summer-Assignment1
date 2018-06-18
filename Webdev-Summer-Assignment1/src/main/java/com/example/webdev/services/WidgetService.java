@@ -1,4 +1,4 @@
-package com.example.webdevassignment2java.services;
+package com.example.webdev.services;
 
 import java.util.ArrayList;
 import java.util.List;

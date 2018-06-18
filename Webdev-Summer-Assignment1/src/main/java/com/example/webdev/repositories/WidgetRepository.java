@@ -1,4 +1,4 @@
-package com.example.webdevassignment2java.repositories;
+package com.example.webdev.repositories;
 
 import javax.transaction.Transactional;
 import org.springframework.data.repository.CrudRepository;
