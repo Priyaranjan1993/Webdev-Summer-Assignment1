@@ -97,5 +97,122 @@ public class WidgetService {
 	}
 	
 	
+	@PostMapping("/api/lesson/{lessonId}/widget")
+	public List<String> saveAllWidgets(@RequestBody List<Widget> widgets,@PathVariable("lessonId") int lessonId) {
+		Optional<Lesson> data = lessonRepository.findById(lessonId);
+		List<String> result = new ArrayList<String>();
+		//Set<String> names = new HashSet<String>();
+		ArrayList<String> header = new ArrayList<String>();
+		ArrayList<String> para = new ArrayList<String>();
+		ArrayList<String> list = new ArrayList<String>();
+		ArrayList<String> image = new ArrayList<String>();
+		ArrayList<String> link = new ArrayList<String>();
+		Boolean headerCheck = false;
+		Boolean paraCheck = false;
+		Boolean listCheck = false;
+		Boolean imageCheck = false;
+		Boolean linkCheck = false;
+		if(data.isPresent()) {
+			Lesson lesson = data.get();
+			for(Widget w : widgets)
+			{
+				if(w.getWidgetType().equals("Heading"))
+				{
+					header.add(w.getWidgetName());
+				}
+				if(w.getWidgetType().equals("Paragraph"))
+				{
+					para.add(w.getWidgetNamePara());
+				}
+				if(w.getWidgetType().equals("List"))
+				{
+					list.add(w.getWidgetNameList());
+				}
+				if(w.getWidgetType().equals("Image"))
+				{
+					image.add(w.getWidgetNameImage());
+				}
+				if(w.getWidgetType().equals("Link"))
+				{
+					link.add(w.getLinkName());
+				}
+				
+				for(int m = 0; m<header.size(); m++)
+				{
+					for(int n=m+1; n< header.size();n++)
+					{
+						if(header.get(m).equalsIgnoreCase(header.get(n)))
+						{
+							headerCheck = true;
+						}
+					}
+				}
+				
+				for(int a = 0; a<para.size(); a++)
+				{
+					for(int b=a+1; b< para.size();b++)
+					{
+						if(para.get(a).equalsIgnoreCase(para.get(b)))
+						{
+							paraCheck = true;
+						}
+					}
+				}
+				
+				for(int c = 0; c<list.size(); c++)
+				{
+					for(int d=c+1; d< list.size();d++)
+					{
+						if(list.get(c).equalsIgnoreCase(list.get(d)))
+						{
+							listCheck = true;
+						}
+					}
+				}
+				
+				for(int e = 0; e<image.size(); e++)
+				{
+					for(int f=e+1; f< image.size();f++)
+					{
+						if(image.get(e).equalsIgnoreCase(image.get(f)))
+						{
+							imageCheck = true;
+						}
+					}
+				}
+				
+				for(int g = 0; g<link.size(); g++)
+				{
+					for(int h=g+1; h< link.size();h++)
+					{
+						if(link.get(g).equalsIgnoreCase(link.get(h)))
+						{
+							linkCheck = true;
+						}
+					}
+				}
+				
+			}
+			
+			if(headerCheck || paraCheck || listCheck || imageCheck || linkCheck)
+			{
+				String str = "error";
+				result.add(str);
+				return result;
+			}
+			else {
+				repository.deleteByLessonId(lesson.getId());
+				for(Widget widget: widgets) {
+					widget.setLesson(lesson);
+					repository.save(widget);
+				}
+				String str2 = "success";
+				result.add(str2);
+				return result;
+			}
+		}
+		return null;
+	}
+	
 
 }
