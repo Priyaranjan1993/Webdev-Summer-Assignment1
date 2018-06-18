@@ -34,5 +34,28 @@ public class WidgetService {
 		return (List<Widget>) repository.findAll();
 
 	}
+	
+	@GetMapping("/api/lesson/{lessonId}/widget")
+	public List<Widget> findAllWidgetsByLessonId(@PathVariable("lessonId") int lessonId)
+	{
+		Optional<Lesson> data = lessonRepository.findById(lessonId);
+		if(data.isPresent()) {
+			Lesson lesson = data.get();
+			return lesson.getWidget();
+		}
+		return null;
+	}
+	
+	@GetMapping("/api/widget/{widgetId}")
+	public Widget findAllWidgetsByWidgetId(@PathVariable("widgetId") int widgetId)
+	{
+		Optional<Widget> data = repository.findById(widgetId);
+		if(data.isPresent()) {
+			Widget widget = data.get();
+			return widget;
+		}
+		return null;
+	}
+	
 
 }
