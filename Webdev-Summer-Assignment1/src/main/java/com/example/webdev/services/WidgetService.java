@@ -57,5 +57,45 @@ public class WidgetService {
 		return null;
 	}
 	
+	@RequestMapping(method = RequestMethod.PUT, value="/api/widget/{widgetId}")
+	public Widget updateWidgetById(@RequestBody Widget newWidget,@PathVariable("widgetId") int widgetId)
+	{
+		Optional<Widget> data = repository.findById(widgetId);
+		if(data.isPresent()) {
+			Widget widget = data.get();
+			widget.setText(newWidget.getText());
+			widget.setWidgetType(newWidget.getWidgetType());
+			widget.setOrderNum(newWidget.getOrderNum());
+			widget.setSize(newWidget.getSize());
+			widget.setItems(newWidget.getItems());
+			widget.setWidgetName(newWidget.getWidgetName());
+			widget.setParagraphText(newWidget.getParagraphText());
+			widget.setWidgetNamePara(newWidget.getWidgetNamePara());;
+			widget.setListSelect(newWidget.getListSelect());
+			widget.setWidgetNameList(newWidget.getWidgetNameList());
+			widget.setListText(newWidget.getListText());
+			widget.setListTextToArray(newWidget.getListTextToArray());
+			widget.setSearchName(newWidget.getSearchName());
+			widget.setSrc(newWidget.getSrc());
+			widget.setWidgetNameImage(newWidget.getWidgetNameImage());
+			widget.setImageArray(newWidget.getImageArray());
+			widget.setLinkText(newWidget.getLinkText());
+			widget.setLinkName(newWidget.getLinkName());
+			widget.setLinkUrl(newWidget.getLinkUrl());
+			widget.setInnerPreview(newWidget.getInnerPreview());
+
+			repository.save(widget);
+			return widget;
+		}
+		return null;
+	}
+	
+	@RequestMapping(method = RequestMethod.DELETE, value="/api/widget/{widgetId}")
+	public void deleteWidget(@PathVariable("widgetId") int widgetId)
+	{
+		repository.deleteById(widgetId);
+	}
+	
+	
 
 }
