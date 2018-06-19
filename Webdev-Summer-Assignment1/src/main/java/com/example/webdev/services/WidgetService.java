@@ -114,6 +114,7 @@ public class WidgetService {
 		Boolean listCheck = false;
 		Boolean imageCheck = false;
 		Boolean linkCheck = false;
+		Boolean commonCheck = false;
 		if(data.isPresent()) {
 			Lesson lesson = data.get();
 			for(Widget w : widgets)
@@ -137,6 +138,42 @@ public class WidgetService {
 				if(w.getWidgetType().equals("Link"))
 				{
 					link.add(w.getLinkName());
+				}
+
+				
+				for(String str : header) {
+					if((para.contains(str)) || list.contains(str) || image.contains(str) || link.contains(str))
+					{
+						commonCheck = true;
+					}
+				}
+				
+				for(String str : para) {
+					if((header.contains(str)) || list.contains(str) || image.contains(str) || link.contains(str))
+					{
+						commonCheck = true;
+					}
+				}
+				
+				for(String str : list) {
+					if((para.contains(str)) || header.contains(str) || image.contains(str) || link.contains(str))
+					{
+						commonCheck = true;
+					}
+				}
+				
+				for(String str : image) {
+					if((para.contains(str)) || list.contains(str) || header.contains(str) || link.contains(str))
+					{
+						commonCheck = true;
+					}
+				}
+				
+				for(String str : link) {
+					if((para.contains(str)) || list.contains(str) || image.contains(str) || header.contains(str))
+					{
+						commonCheck = true;
+					}
 				}
 				
 				for(int m = 0; m<header.size(); m++)
@@ -196,7 +233,7 @@ public class WidgetService {
 				
 			}
 			
-			if(headerCheck || paraCheck || listCheck || imageCheck || linkCheck)
+			if(headerCheck || paraCheck || listCheck || imageCheck || linkCheck|| commonCheck)
 			{
 				String str = "error";
 				result.add(str);
