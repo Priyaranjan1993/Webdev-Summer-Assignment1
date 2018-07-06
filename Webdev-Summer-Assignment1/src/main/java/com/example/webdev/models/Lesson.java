@@ -27,7 +27,19 @@ public class Lesson {
 	private List<Topic> topic;
 	
 	@OneToMany(mappedBy="lesson")
+	@JsonIgnore
 	private List<Widget> widget;
+	
+	@OneToMany(mappedBy="lesson")
+	@JsonIgnore
+	private List<WidgetNative> widgetNative;
+	
+	public List<WidgetNative> getWidgetNative() {
+		return widgetNative;
+	}
+	public void setWidgetNative(List<WidgetNative> widgetNative) {
+		this.widgetNative = widgetNative;
+	}
 	
 	public List<Topic> getTopic() {
 		return topic;
