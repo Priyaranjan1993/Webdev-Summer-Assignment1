@@ -28,7 +28,7 @@ public class WidgetService {
 	@Autowired
 	LessonRepository lessonRepository;
 
-	@GetMapping("/api/widget")
+/*	@GetMapping("/api/widget")
 	public List<Widget> findAllWidgets()
 	{
 		return (List<Widget>) repository.findAll();
@@ -251,5 +251,5 @@ public class WidgetService {
 			}
 		}
 		return null;
-	}
+	}*/
 }
